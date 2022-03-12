@@ -48,7 +48,7 @@ function configure_cinder_backend_quantum {
     local be_name=$1
 
     iniset $CINDER_CONF $be_name volume_backend_name $be_name
-    iniset $CINDER_CONF $be_name volume_driver "cinder.volume.drivers.quantum.QUANTUMVolumeDriver"
+    iniset $CINDER_CONF $be_name volume_driver "cinder.volume.drivers.quantum.QuantumDriver"
     iniset $CINDER_CONF $be_name volume_group $VOLUME_GROUP_NAME-$be_name
     iniset $CINDER_CONF $be_name target_helper "$CINDER_ISCSI_HELPER"
     iniset $CINDER_CONF $be_name quantum_type "$CINDER_QUANTUM_TYPE"
