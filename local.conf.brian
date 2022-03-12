@@ -1,0 +1,10 @@
+[[local|localrc]]
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+# DEVSTACK_REPO=https://github.com/brianauldco/devstack.git
+CINDER_REPO=https://github.com/brianauldco/cinder.git
+
+enable_plugin barbican https://opendev.org/openstack/barbican
