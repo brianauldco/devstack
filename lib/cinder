@@ -83,7 +83,7 @@ CINDER_LVM_TYPE=${CINDER_LVM_TYPE:-auto}
 # comma-separated.
 # The old ``CINDER_MULTI_LVM_BACKEND=True`` setting had a default of:
 # CINDER_ENABLED_BACKENDS=${CINDER_ENABLED_BACKENDS:-lvm:lvmdriver-1,lvm:lvmdriver-2}
-CINDER_ENABLED_BACKENDS=${CINDER_ENABLED_BACKENDS:-lvm:lvmdriver-1}
+CINDER_ENABLED_BACKENDS=${CINDER_ENABLED_BACKENDS:-lvm:lvmdriver-1,quantum:quantum}
 
 CINDER_VOLUME_CLEAR=${CINDER_VOLUME_CLEAR:-${CINDER_VOLUME_CLEAR_DEFAULT:-zero}}
 CINDER_VOLUME_CLEAR=$(echo ${CINDER_VOLUME_CLEAR} | tr '[:upper:]' '[:lower:]')
