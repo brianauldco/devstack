@@ -11,4 +11,4 @@ CINDER_BRANCH=stable/xena
 
 BARBICAN_BRANCH=stable/xena
 
-enable_plugin barbican https://opendev.org/openstack/barbican
+enable_plugin barbican git@github.com:openstack/barbican.git
