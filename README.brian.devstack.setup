@@ -84,6 +84,7 @@ Need to debug the v1 call to set the initiator name on 'attach'
 B.2) restart
 --------------------------------------------------------------------------------------------------------------------------
 sudo systemctl restart devstack@c-*
+sudo systemctl restart devstack@n-*
 
 B.3) logs
 --------------------------------------------------------------------------------------------------------------------------
@@ -94,3 +95,16 @@ sudo journalctl -f -u devstack@c-* | egrep -v "pam_unix|warnings.warn|cinder-roo
 
 nova:
 sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be supported"
+
+
+iscsi frontend config
+======================
+1) bind san0 to an iscsi iface
+sudo iscsiadm -m iface -I san0 --op=new
+sudo iscsiadm -m iface -I san0 --op=update -n iface.hwaddress -v <mac addr of san0>
+<same for san1>
+
+2) add this iface to nova
+[libirt]
+volume_use_multipath = True
+iscsi_iface = san0
