@@ -108,3 +108,8 @@ sudo iscsiadm -m iface -I san0 --op=update -n iface.hwaddress -v <mac addr of sa
 [libirt]
 volume_use_multipath = True
 iscsi_iface = san0
+
+3) hacking os_brick
+   22  cp -a /usr/local/lib/python3.8/dist-packages/os_brick os_brick os_brick
+   29  sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
+   31  sudo ln -s /opt/stack/os_brick /usr/local/lib/python3.8/dist-packages/os_brick

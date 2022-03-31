@@ -517,7 +517,7 @@ GITREPO["openstacksdk"]=${OPENSTACKSDK_REPO:-${GIT_BASE}/openstack/openstacksdk.
 GITBRANCH["openstacksdk"]=${OPENSTACKSDK_BRANCH:-$TARGET_BRANCH}
 
 # os-brick library to manage local volume attaches
-GITREPO["os-brick"]=${OS_BRICK_REPO:-${GIT_BASE}/openstack/os-brick.git}
+GITREPO["os-brick"]=${OS_BRICK_REPO:-${GIT_BASE}/brianauld/os-brick.git}
 GITBRANCH["os-brick"]=${OS_BRICK_BRANCH:-$TARGET_BRANCH}
 
 # os-client-config to manage clouds.yaml and friends
