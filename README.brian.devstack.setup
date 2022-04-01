@@ -96,6 +96,9 @@ sudo journalctl -f -u devstack@c-* | egrep -v "pam_unix|warnings.warn|cinder-roo
 nova:
 sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be supported"
 
+syslog:
+sudo tail -F /var/log/syslog | egrep "dstat|barbican"
+
 
 iscsi frontend config
 ======================
@@ -124,15 +127,34 @@ make install
 maybe also install open-isns
 
 5) iscsi commands
+=======================================================================================================================
+=======================================================================================================================
+iqn.2005-03.org.open-iscsi:41301bd2d5c1
 
-'iscsiadm', '-m', 'node', '-T', 'naa.600176c38b844c68f58e45682916c172', '-p', '10.134.22.21'
-'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--interface', 'default', '--op', 'new'
-'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21'
-'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--op', 'update', '-n', 'node.session.scan', '-v', 'manual'
-'iscsiadm', '-m', 'session'
-'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--login'
-'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--op', 'update', '-n', 'node.startup', '-v', 'automatic'
-'iscsiadm', '-m', 'session'
+5a) look for now
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21
+
+5b) add node
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --interface default --op new
+
+5c) check for node
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21
+
+5d) what is this
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --op update -n node.session.scan -v manual
+
+5e) check for sessions (none)
+sudo iscsiadm -m session
+
+5f) login
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --login
+
+5g)
+sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --op update -n node.session.scan -v manual
+
+5h)
+sudo iscsiadm -m session
+
 ...
 keep logging in and getting:
 stderr=iscsiadm: default: 1 session requested, but 1 already present.
