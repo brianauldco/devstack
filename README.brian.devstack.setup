@@ -110,6 +110,34 @@ volume_use_multipath = True
 iscsi_iface = san0
 
 3) hacking os_brick
-   22  cp -a /usr/local/lib/python3.8/dist-packages/os_brick os_brick os_brick
-   29  sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
-   31  sudo ln -s /opt/stack/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
+cd /opt/stack
+git clone git@github.com:brianauldco/os-brick.git
+sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
+sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
+
+4) hacking iscsiadm
+sudo apt install -y libmount-dev
+build iscsiadm at 2.0-874
+make SBINDIR="/usr/sbin"
+make install
+
+maybe also install open-isns
+
+5) iscsi commands
+
+'iscsiadm', '-m', 'node', '-T', 'naa.600176c38b844c68f58e45682916c172', '-p', '10.134.22.21'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--interface', 'default', '--op', 'new'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--op', 'update', '-n', 'node.session.scan', '-v', 'manual'
+'iscsiadm', '-m', 'session'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--login'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--op', 'update', '-n', 'node.startup', '-v', 'automatic'
+'iscsiadm', '-m', 'session'
+...
+keep logging in and getting:
+stderr=iscsiadm: default: 1 session requested, but 1 already present.
+iscsiadm: Could not log into all portals
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--login'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--op', 'update', '-n', 'node.startup', '-v', 'automatic'
+'iscsiadm', '-m', 'session'
+'iscsiadm', '-m', 'node', '-T', <naa>, '-p', '10.134.22.21', '--login'
