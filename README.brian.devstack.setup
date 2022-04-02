@@ -99,15 +99,15 @@ sudo tail -F /var/log/syslog | egrep "dstat|barbican"
 
 iscsi frontend config
 ======================
-1) bind san0 to an iscsi iface
-sudo iscsiadm -m iface -I san0 --op=new
-sudo iscsiadm -m iface -I san0 --op=update -n iface.hwaddress -v <mac addr of san0>
-<same for san1>
+# 1) bind san0 to an iscsi iface
+# sudo iscsiadm -m iface -I san0 --op=new
+# sudo iscsiadm -m iface -I san0 --op=update -n iface.hwaddress -v <mac addr of san0>
+# <same for san1>
 
-2) add this iface to nova
-[libirt]
-volume_use_multipath = True
-iscsi_iface = san0
+# 2) add this iface to nova
+# [libirt]
+# volume_use_multipath = True
+# iscsi_iface = san0
 
 3) hacking os_brick
 cd /opt/stack
@@ -115,17 +115,15 @@ git clone git@github.com:brianauldco/os-brick.git
 sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
 sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
 
-4) hacking iscsiadm
-sudo apt install -y libmount-dev
-build iscsiadm at 2.0-874
-make SBINDIR="/usr/sbin"
-make install
+# 4) hacking iscsiadm
+# sudo apt install -y libmount-dev
+# build iscsiadm at 2.0-874
+# make SBINDIR="/usr/sbin"
+# make install
 
-maybe also install open-isns
+# maybe also install open-isns
 
 5) iscsi commands
-=======================================================================================================================
-=======================================================================================================================
 iqn.2005-03.org.open-iscsi:41301bd2d5c1
 sudo service iscsid restart
 sudo service iscsi restart
