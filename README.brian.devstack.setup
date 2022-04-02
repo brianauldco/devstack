@@ -83,15 +83,12 @@ Need to debug the v1 call to set the initiator name on 'attach'
 
 B.2) restart
 --------------------------------------------------------------------------------------------------------------------------
-sudo systemctl restart devstack@c-*
-sudo systemctl restart devstack@n-*
+sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
 
 B.3) logs
 --------------------------------------------------------------------------------------------------------------------------
 cinder:
 sudo journalctl -f -u devstack@c-* | egrep -v "pam_unix|warnings.warn|cinder-rootwrap|/usr/local/lib/python3.8/dist-packages"
-or
-sudo journalctl -f -u devstack@c-* | egrep -v "pam_unix|warnings.warn|cinder-rootwrap|/usr/local/lib/python3.8/dist-packages|seconds as it raised KeyError"
 
 nova:
 sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be supported"
@@ -130,27 +127,29 @@ maybe also install open-isns
 =======================================================================================================================
 =======================================================================================================================
 iqn.2005-03.org.open-iscsi:41301bd2d5c1
+sudo service iscsid restart
+sudo service iscsi restart
 
 5a) look for now
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21
 
 5b) add node
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --interface default --op new
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21 --interface default --op new
 
 5c) check for node
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21
 
 5d) what is this
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --op update -n node.session.scan -v manual
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21 --op update -n node.session.scan -v manual
 
 5e) check for sessions (none)
 sudo iscsiadm -m session
 
 5f) login
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --login
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21 --login
 
 5g)
-sudo iscsiadm -m node -T naa.600176c3c97051518be0f9392916c172 -p 10.134.22.21 --op update -n node.session.scan -v manual
+sudo iscsiadm -m node -T naa.600176c3ddcc8a864f7f947f2916c172 -p 10.134.22.21 --op update -n node.startup -v automatic
 
 5h)
 sudo iscsiadm -m session
