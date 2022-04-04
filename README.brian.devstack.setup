@@ -74,18 +74,23 @@ C) cinder
 # patch -p1 < /corpshare/Users/bauld/review/triage/JP2/Enclouden/p3-POC/0001-cinder-changes.patch
 
 # don't think this is needed anymore...
-cinder type-create quantum
-cinder type-key quantum set volume_backend_name=quantum
+# cinder type-create quantum
+# cinder type-key quantum set volume_backend_name=quantum
 
 # INITIATOR IQN
 for POC, hardcode the iqn of the initiator into the quantum.py do_setup function. The api doesn't do host access stuff well.
 Need to debug the v1 call to set the initiator name on 'attach'
 
-B.2) restart
---------------------------------------------------------------------------------------------------------------------------
+
+D) post deploy
+==========================================================================================================================
+==========================================================================================================================
+
+D.1 restart services
+-------------------------------------------------------------------------------------------------------------------------
 sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
 
-B.3) logs
+D.2) Logging
 --------------------------------------------------------------------------------------------------------------------------
 cinder:
 sudo journalctl -f -u devstack@c-* | egrep -v "pam_unix|warnings.warn|cinder-rootwrap|/usr/local/lib/python3.8/dist-packages"
@@ -96,6 +101,31 @@ sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be sup
 syslog:
 sudo tail -F /var/log/syslog | egrep "dstat|barbican"
 
+D.3) os-brick more verbose logging (no functional change to my repo
+--------------------------------------------------------------------------------------------------------------------------
+cd /opt/stack
+git clone git@github.com:brianauldco/os-brick.git
+sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
+sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
+
+D.4) IQN hack
+--------------------------------------------------------------------------------------------------------------------------
+iqn.2005-03.org.open-iscsi:41301bd2d5c1
+sudo service iscsid restart
+sudo service iscsi restart
+
+OR
+
+* cat /etc/iscsi/initiatorname.iscsi
+* copy into quantum.py
+* restart cinder services
+
+
+
+
+MISCS NOTES not necessary for running system
+==========================================================================================================================
+==========================================================================================================================
 
 iscsi frontend config
 ======================
@@ -108,12 +138,6 @@ iscsi frontend config
 # [libirt]
 # volume_use_multipath = True
 # iscsi_iface = san0
-
-3) hacking os_brick
-cd /opt/stack
-git clone git@github.com:brianauldco/os-brick.git
-sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
-sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
 
 # 4) hacking iscsiadm
 # sudo apt install -y libmount-dev
