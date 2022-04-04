@@ -99,12 +99,13 @@ nova:
 sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be supported"
 
 syslog:
-sudo tail -F /var/log/syslog | egrep "dstat|barbican"
+sudo tail -F /var/log/syslog | egrep -v "dstat|barbican"
 
 D.3) os-brick more verbose logging (no functional change to my repo
 --------------------------------------------------------------------------------------------------------------------------
 cd /opt/stack
 git clone git@github.com:brianauldco/os-brick.git
+* checkout stable/xena
 sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
 sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
 
