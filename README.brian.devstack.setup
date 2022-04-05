@@ -86,9 +86,27 @@ D) post deploy
 ==========================================================================================================================
 ==========================================================================================================================
 
-D.1 restart services
--------------------------------------------------------------------------------------------------------------------------
-sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
+D.1 CINDER.CONF
+==========================================================================================================================
+==========================================================================================================================
+
+[quantum]
+volume_backend_name = quantum
+volume_driver = cinder.volume.drivers.quantum.QuantumDriver
+api_endpoint_ip = 10.134.204.84
+api_version = 2
+api_username = pivot3
+api_password = pivot3
+api_ssl_verify = false
+target_helper = lioadm
+target_ip_address = 10.134.22.21
+target_port = 3260
+vpg_name = VG509
+storage_protocol = iscsi
+#image_volume_cache_enabled = True
+#volume_clear = zero
+#quantum_type =
+#volume_group = stack-volumes-quantum
 
 D.2) Logging
 --------------------------------------------------------------------------------------------------------------------------
@@ -120,6 +138,10 @@ OR
 * cat /etc/iscsi/initiatorname.iscsi
 * copy into quantum.py
 * restart cinder services
+
+D.5 restart services
+-------------------------------------------------------------------------------------------------------------------------
+sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
 
 
 
