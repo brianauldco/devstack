@@ -54,6 +54,9 @@ A.4) Misc:
 A.6) instsall multipath tools:
 sudo apt -y install multipath-tools
 
+A.7) docker compose:
+sudo apt install -y docker-compose
+
 
 B) DEVSTACK
 ==========================================================================================================================
