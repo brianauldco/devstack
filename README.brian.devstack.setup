@@ -91,10 +91,12 @@ D.0 before running devstack
 * check local.conf
 * set cinder branch to desired branch...
 
-D.1 CINDER.CONF
+D.1 config files
 ==========================================================================================================================
 ==========================================================================================================================
 
+CINDER.CONF
+-----------
 [quantum]
 volume_backend_name = quantum
 volume_driver = cinder.volume.drivers.quantum.QuantumDriver
@@ -112,6 +114,11 @@ storage_protocol = iscsi
 #volume_clear = zero
 #quantum_type =
 #volume_group = stack-volumes-quantum
+
+NOVA.CONF
+-----------
+[libirt]
+volume_use_multipath = True
 
 D.2) Logging
 --------------------------------------------------------------------------------------------------------------------------
