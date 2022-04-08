@@ -51,7 +51,9 @@ A.4) Misc:
 * turn off any screen locks or savers
 * add ssh-keygen to github
 
-A.5) =====> should have a VM snapshot here: (cannot do with moved VM...)
+A.6) instsall multipath tools:
+sudo apt -y install multipath-tools
+
 
 B) DEVSTACK
 ==========================================================================================================================
