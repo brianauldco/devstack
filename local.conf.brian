@@ -10,6 +10,9 @@ SERVICE_PASSWORD=$ADMIN_PASSWORD
 CINDER_REPO=git@cypress.corp.pivot3.com:usp/cinder.git
 CINDER_BRANCH=stable/xena
 
+NOVA_REPO=git@github.com:brianauldco/nova.git
+NOVA_BRANCH=stable/xena
+
 BARBICAN_BRANCH=stable/xena
 
 enable_plugin barbican git@github.com:openstack/barbican.git
