@@ -178,8 +178,15 @@ apt-cache-madison docker-ce
 sudo apt-get install -y docker-ce=<VERSION STRING> docker-ce-cli=<VERSION STRING> containerd.io
 sudo apt-get install -y docker-ce=5:20.10.14~3-0~ubuntu-focal docker-ce-cli=5:20.10.14~3-0~ubuntu-focal containerd.io
 
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+
 git clone git@cypress.corp.pivot3.com:build/P3DockerUtils.git
-(sudo ./cert_install.sh)
+sudo ./cert_install.sh
+
+(reboot)
 docker login images.corp.pivot3.com
 ./update-container.sh
 
