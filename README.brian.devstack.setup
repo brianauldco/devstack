@@ -47,15 +47,48 @@ git config --global user.email "brian.auld@quantum.com"
 git config --global user.name "Brian Auld"
 
 A.4) Misc:
+--------------------------------------------------------------------------------------------------------------------------
 * configure san0/san1 network I/Fs
 * turn off any screen locks or savers
 * add ssh-keygen to github
 
 A.6) instsall multipath tools:
+--------------------------------------------------------------------------------------------------------------------------
 sudo apt -y install multipath-tools
 
-A.7) docker compose:
-sudo apt install -y docker-compose
+A.7) container stuff
+--------------------------------------------------------------------------------------------------------------------------
+#sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get remove docker docker.io containerd runc
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+apt-cache-madison docker-ce
+... from above chose <VERSION STRING> (latest?)
+sudo apt-get install -y docker-ce=<VERSION STRING> docker-ce-cli=<VERSION STRING> containerd.io
+sudo apt-get install -y docker-ce=5:20.10.14~3-0~ubuntu-focal docker-ce-cli=5:20.10.14~3-0~ubuntu-focal containerd.io
+sudo docker run hello-world
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+
+git clone git@cypress.corp.pivot3.com:build/P3DockerUtils.git
+sudo ./cert_install.sh
+
+(reboot)
+docker run hello world
+docker login images.corp.pivot3.com
+./update-container.sh
+
+(run compose here or after)
 
 
 B) DEVSTACK
@@ -158,37 +191,10 @@ D.5 restart services
 -------------------------------------------------------------------------------------------------------------------------
 sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
 
-D.6 Craig's container stuff
----------------------------
-docker setup
-------------
-#sudo apt-get remove docker docker-engine docker.io containerd runc
-sudo apt-get remove docker docker.io containerd runc
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-apt-cache-madison docker-ce
-... from above chose <VERSION STRING> (latest?)
-sudo apt-get install -y docker-ce=<VERSION STRING> docker-ce-cli=<VERSION STRING> containerd.io
-sudo apt-get install -y docker-ce=5:20.10.14~3-0~ubuntu-focal docker-ce-cli=5:20.10.14~3-0~ubuntu-focal containerd.io
-
-sudo groupadd docker
-sudo usermod -aG docker $USER
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-
-git clone git@cypress.corp.pivot3.com:build/P3DockerUtils.git
-sudo ./cert_install.sh
-
-(reboot)
-docker login images.corp.pivot3.com
-./update-container.sh
+D.6 Craig conatiner
+-------------------
+docker-compose up
+(run on modified yaml file)
 
 
 
