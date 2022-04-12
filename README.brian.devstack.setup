@@ -172,7 +172,7 @@ nova:
 sudo journalctl -f -u devstack@n-* | egrep -v "PCI NUMA affinity will not be supported"
 
 syslog:
-sudo tail -F /var/log/syslog | egrep -v "dstat|barbican"
+sudo tail -F /var/log/syslog | egrep -v "dstat|barbican|sda"
 
 D.3) os-brick more verbose logging (no functional change to my repo
 --------------------------------------------------------------------------------------------------------------------------
@@ -200,6 +200,7 @@ sudo systemctl restart devstack@c-*; sudo systemctl restart devstack@n-*
 
 D.6 Craig conatiner
 -------------------
+sudo apt install -y docker-compose
 docker-compose up
 (run on modified yaml file)
 
