@@ -59,17 +59,19 @@ sudo apt -y install multipath-tools
 A.7) container stuff
 --------------------------------------------------------------------------------------------------------------------------
 #sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get purge docker-ce docker-ce-cli containerd.io
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+
 sudo apt-get remove docker docker.io containerd runc
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-apt-cache-madison docker-ce
+apt-cache madison docker-ce
 ... from above chose <VERSION STRING> (latest?)
 sudo apt-get install -y docker-ce=<VERSION STRING> docker-ce-cli=<VERSION STRING> containerd.io
 sudo apt-get install -y docker-ce=5:20.10.14~3-0~ubuntu-focal docker-ce-cli=5:20.10.14~3-0~ubuntu-focal containerd.io
@@ -83,7 +85,7 @@ sudo systemctl enable containerd.service
 git clone git@cypress.corp.pivot3.com:build/P3DockerUtils.git
 sudo ./cert_install.sh
 
-(reboot)
+(reboot) YOU ARE HERE (run below then save VM to template)
 docker run hello world
 docker login images.corp.pivot3.com
 ./update-container.sh
@@ -98,6 +100,11 @@ B) DEVSTACK
 git clone git@github.com:brianauldco/devstack.git
 (switch to stable/xena branch...)
 cp /opt/stack/devstack/local.conf.brian /opt/stack/devstack/local.conf
+
+
+^^^^^^ this is where I clone to template...
+
+vvvvvv below is what happens post OVF deploy
 
 ./stack.sh
 
