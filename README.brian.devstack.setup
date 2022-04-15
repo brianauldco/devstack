@@ -123,8 +123,8 @@ C) cinder
 # cinder type-key quantum set volume_backend_name=quantum
 
 # INITIATOR IQN
-for POC, hardcode the iqn of the initiator into the quantum.py do_setup function. The api doesn't do host access stuff well.
-Need to debug the v1 call to set the initiator name on 'attach'
+Add InitiatorAlias and make sure quantum.py has the same...
+InitiatorAlias=vg509-3.iscsi.alias
 
 
 D) post deploy
@@ -138,8 +138,8 @@ D.1 config files
 ==========================================================================================================================
 ==========================================================================================================================
 
-CINDER.CONF
------------
+CINDER.CONF (/etc/cinder/cinder.conf)
+-------------------------------------
 [quantum]
 volume_backend_name = quantum
 volume_driver = cinder.volume.drivers.quantum.QuantumDriver
@@ -158,8 +158,8 @@ storage_protocol = iscsi
 #quantum_type =
 #volume_group = stack-volumes-quantum
 
-NOVA.CONF
------------
+NOVA.CONF (actually /etc/nova/nova-cpu.conf)
+-------------------------------------------
 [libirt]
 volume_use_multipath = True
 
