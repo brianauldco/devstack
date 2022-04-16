@@ -25,11 +25,13 @@ services:
       PASSWORD: pivot3
 
       # optional comma separated list of IPs to discover when the server boots
-      AUTO_DISCOVERY_IP: 10.134.6.22
+      #AUTO_DISCOVERY_IP: 10.134.6.22
+      AUTO_DISCOVERY_IP: 10.134.6.222,10.134.6.232,10.134.6.242
 
       # optional comma separated list of IPs to filter. Only nodes with at least one
       # IP in this list will show up in the domain.
-      IP_ADDRESS_FILTER: 10.134.6.22
+      #IP_ADDRESS_FILTER: 10.134.6.22
+      IP_ADDRESS_FILTER: 10.134.6.222;10.134.6.232;10.134.6.242
 
   # vs-mgmt-ui:
   #   image: images.corp.pivot3.com/dev/ui/quantum-vs-mgmt/vs-mgmt-standalone
