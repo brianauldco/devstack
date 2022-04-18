@@ -210,7 +210,9 @@ sudo apt install -y docker-compose
 docker-compose up
 (run on modified yaml file)
 
-
+D.7 importing windows image
+=============================================================================================================================
+gunzip -cd /corpshare/Users/bauld/review/triage/work/Enclouden/p3-POC/win-image/windows_server_2012_r2_standard_eval_kvm_20170321.qcow2.gz | glance image-create --property hypervisor_type=QEMU --name "w2k12r2 std eval" --container-format bare --disk-format qcow2 --property os_type=windows
 
 MISCS NOTES not necessary for running system
 ==========================================================================================================================
