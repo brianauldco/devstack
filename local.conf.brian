@@ -8,7 +8,7 @@ SERVICE_PASSWORD=$ADMIN_PASSWORD
 #CINDER_REPO=https://github.com/brianauldco/cinder.git
 #CINDER_REPO=git@github.com:brianauldco/cinder.git
 CINDER_REPO=git@cypress.corp.pivot3.com:usp/cinder.git
-CINDER_BRANCH=stable/xena
+CINDER_BRANCH=bauld/ece-119
 
 NOVA_REPO=git@github.com:brianauldco/nova.git
 NOVA_BRANCH=stable/xena
