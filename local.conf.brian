@@ -1,14 +1,10 @@
 [[local|localrc]]
-ADMIN_PASSWORD=secret
-DATABASE_PASSWORD=$ADMIN_PASSWORD
-RABBIT_PASSWORD=$ADMIN_PASSWORD
-SERVICE_PASSWORD=$ADMIN_PASSWORD
 
 # DEVSTACK_REPO=https://github.com/brianauldco/devstack.git
 #CINDER_REPO=https://github.com/brianauldco/cinder.git
 #CINDER_REPO=git@github.com:brianauldco/cinder.git
 CINDER_REPO=git@cypress.corp.pivot3.com:usp/cinder.git
-CINDER_BRANCH=bauld/ece-119
+CINDER_BRANCH=stable/xena
 
 NOVA_REPO=git@github.com:brianauldco/nova.git
 NOVA_BRANCH=stable/xena
@@ -16,3 +12,27 @@ NOVA_BRANCH=stable/xena
 BARBICAN_BRANCH=stable/xena
 
 enable_plugin barbican git@github.com:openstack/barbican.git
+
+VM_MGMT_IP=10.134.6.33
+HOST_IP=$VM_MGMT_IP
+SERVICE_HOST=$VM_MGMT_IP
+MYSQL_HOST=$VM_MGMT_IP
+RABBIT_HOST=$VM_MGMT_IP
+GLANCE_HOSTPORT=$VM_MGMT_IP:9292
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+## meutron
+Q_USE_SECGROUP=True
+FLOATING_RANGE="10.134.0.0/20"
+IPV4_ADDRS_SAFE_TO_USE="10.0.0.0/22"
+Q_FLOATING_ALLOCATION_POOL=start=10.134.6.34,end=10.134.6.39
+PUBLIC_INTERFACE=ens160
+
+## open vswitch
+Q_USE_PROVIDERNET_FOR_PUBLIC=True
+OVS_PHYSICAL_BRIDGE=br-ex
+PUBLIC_BRIDGE=br-ex
+OVS_BRIDGE_MAPPINGS=public:br-ex
