@@ -86,11 +86,13 @@ git clone git@cypress.corp.pivot3.com:build/P3DockerUtils.git
 sudo ./cert_install.sh
 
 (reboot) YOU ARE HERE (run below then save VM to template)
-docker run hello world
 docker login images.corp.pivot3.com
+docker run hello world
 ./update-container.sh
 
 (run compose here or after)
+
+(post devstack ./stack.sh)
 
 Craig conatiner
 -------------------
@@ -183,7 +185,7 @@ sudo tail -F /var/log/syslog | egrep -v "dstat|barbican|sda"
 D.3) os-brick more verbose logging (no functional change to my repo
 --------------------------------------------------------------------------------------------------------------------------
 cd /opt/stack
-git clone git@github.com:brianauldco/os-brick.git
+git clone git@cypress.corp.pivot3.com:usp/os-brick.git
 * checkout stable/xena
 sudo rm -rf /usr/local/lib/python3.8/dist-packages/os_brick
 sudo ln -s /opt/stack/os-brick/os_brick /usr/local/lib/python3.8/dist-packages/os_brick
