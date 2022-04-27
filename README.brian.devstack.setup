@@ -90,6 +90,11 @@ docker login images.corp.pivot3.com
 docker run hello world
 ./update-container.sh
 
+
+A.8 arping wrapper
+==================
+cp /opt/stack/devstack/arping /usr/local/bin/arping
+
 (run compose here or after)
 
 (post devstack ./stack.sh)

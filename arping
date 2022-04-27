@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set +x
+
+/usr/bin/arping $@
+
+
+exit 0
