@@ -33,22 +33,22 @@ services:
       #IP_ADDRESS_FILTER: 10.134.6.22
       IP_ADDRESS_FILTER: 10.134.6.222;10.134.6.232;10.134.6.242
 
-  vs-mgmt-ui:
-    image: images.corp.pivot3.com/dev/ui/quantum-vs-mgmt/vs-mgmt-standalone
-    depends_on:
-      - "vs-mgmt-api"
-    ports:
-      # IP to access the web app (https://<host>:8444/p3plugin/p3-app/index.html)
-      - "8443:8443"
+  # vs-mgmt-ui:
+  #   image: images.corp.pivot3.com/dev/ui/quantum-vs-mgmt/vs-mgmt-standalone
+  #   depends_on:
+  #     - "vs-mgmt-api"
+  #   ports:
+  #     # IP to access the web app (https://<host>:8444/p3plugin/p3-app/index.html)
+  #     - "8443:8443"
 
-      # websocket port from the browser to the webapp
-      - "8887:8887"
-    environment:
-      # API username (vPG username)
-      API_USERNAME: tpsadmin
+  #     # websocket port from the browser to the webapp
+  #     - "8887:8887"
+  #   environment:
+  #     # API username (vPG username)
+  #     API_USERNAME: tpsadmin
 
-      # API password (vPG password)
-      API_PASSWORD: pivot3
+  #     # API password (vPG password)
+  #     API_PASSWORD: pivot3
 
-      # contact IP or hostname (service name) of the API service
-      API_SERVICE_NAME: vs-mgmt-api
+  #     # contact IP or hostname (service name) of the API service
+  #     API_SERVICE_NAME: vs-mgmt-api
